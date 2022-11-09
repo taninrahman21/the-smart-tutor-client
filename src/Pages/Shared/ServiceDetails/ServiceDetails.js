@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link, Navigate, useLoaderData, useLocation } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../contexts/UserContext";
 
 const ServiceDetails = () => {
