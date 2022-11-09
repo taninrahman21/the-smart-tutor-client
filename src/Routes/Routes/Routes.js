@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
+import AddService from "../../Pages/AddService/AddService";
 import AllServices from "../../Pages/AllServices/AllServices";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import MyReviews from "../../Pages/MyReviews/MyReviews";
 import About from "../../Pages/Shared/About/About";
 import Contact from "../../Pages/Shared/Contact/Contact";
 import ServiceDetails from "../../Pages/Shared/ServiceDetails/ServiceDetails";
@@ -46,6 +48,14 @@ export const routes = createBrowserRouter([
         path: '/contact',
         element: <Contact></Contact>
       },
+      {
+        path: '/myreviews',
+        element: <MyReviews></MyReviews>
+      },
+      {
+        path: '/add-service',
+        element: <AddService></AddService>
+      }
     ]
   }
 ])
