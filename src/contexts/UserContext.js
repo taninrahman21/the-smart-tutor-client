@@ -10,13 +10,15 @@ const auth = getAuth(app);
 
 const UserContext = ({children}) => {
   const [user, setUser] = useState(null);
-  const [loding, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
 
   const creatUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   }
   const login = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   }
   useEffect( () => {
@@ -30,7 +32,7 @@ const UserContext = ({children}) => {
   const logOut = () => {
     return signOut(auth);
   }
-  const authInfo = {user, creatUser, login, logOut}; 
+  const authInfo = {user, creatUser, login, logOut, loading}; 
   return (
     <div>
       <AuthContext.Provider value={authInfo}>
