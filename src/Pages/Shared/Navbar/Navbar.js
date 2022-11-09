@@ -1,21 +1,25 @@
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/UserContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const {user, logOut} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     logOut()
     .then(() => {
-      console.log("Successfully Logged out")
+      navigate('/');
+      toast.success('Successfully LogOut!');
     });
   }
   return (
     <div className="sticky top-0 border-b">
+      <Toaster position="top-center" reverseOrder={false} />
       <nav className="bg-gray-50 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center w-5/6 mx-auto">
           <Link to="/" className="text-3xl">
@@ -94,9 +98,9 @@ const Navbar = () => {
               </li>
              
             
-              <li onClick={handleLogOut}>
+              <li>
                 {
-                  user?.email ? <p  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Sign Out</p> : <Link
+                  user?.email ? <p  onClick={handleLogOut}  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Sign Out</p> : <Link
                   to="/login"
                   className=" text-white bg-[#3f6c51] hover:bg-[#365e45] font-medium text-base px-5 py-2.5"
                 >

@@ -39,7 +39,7 @@ const MyReviews = () => {
         reviews.length > 0 ?       <div className='w-5/6 mx-auto grid grid-cols-3 gap-10 my-5'>
         {
           reviews.map(review => <div key={review._id} className='border rounded-sm px-4 py-3 bg-gray-50'>
-                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Name: {review.serviceName}</h5>
+                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Service Name: {review.serviceName}</h5>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
                   Review: {review.review}</p>
                   <div className='flex justify-between mt-3'>
