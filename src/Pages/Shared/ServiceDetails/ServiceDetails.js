@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { FaUserAlt } from "react-icons/fa";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../contexts/UserContext";
 
@@ -59,18 +60,18 @@ const ServiceDetails = () => {
       </p>
       <div className="my-10">
         <p className="text-2xl text-center font-semibold">Public Reviews</p>
-        {reviews?.length > 0 ? (
-          <>
-            {reviews.map((review) => (
-              <div key={review._id}>
-                <div>
-                  <img src={review?.img} alt="" />
-                  <p>{review?.userName}</p>
-                </div>
-              </div>
-            ))}
-          </>
-        ) : (
+        {reviews?.length > 0 ? <div className="my-10">
+          {
+            reviews.map(review => <div key={review._id} className='border-b-2 p-5'>
+              {
+                review.userPhoto ? <img className="w-[60px] rounded-lg mb-2" src={review.userPhoto} alt="userImage" /> 
+                : <FaUserAlt className="w-[60px] rounded-lg mb-2"/>
+              }
+              <h1>Name: {review.userName}</h1>
+              <p>Review: {review.review}</p>
+              </div>)
+          }
+        </div>: (
           <p className="text-2xl text-center font-semibold text-slate-600">
             No reviews for this item.
           </p>
