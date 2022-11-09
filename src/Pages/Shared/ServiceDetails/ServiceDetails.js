@@ -3,20 +3,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useLoaderData } from "react-router-dom";
+import { Link, Navigate, useLoaderData, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../contexts/UserContext";
 
 const ServiceDetails = () => {
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
   const { user } = useContext(AuthContext);
   const { name, price, image, description, ratings, _id } = useLoaderData();
-
-  useEffect( () => {
-    fetch(`http://localhost:5000/review/${_id}`)
-    .then(res => res.json())
-    .then(data => setReviews(data))
-    .catch(err => console.log(err))
-  }, [_id])
+  const location = useLocation();
 
   const handleUploadReview = (event) => {
     event.preventDefault();
@@ -28,9 +22,10 @@ const ServiceDetails = () => {
       userEmail: user?.email,
       userName: user?.displayName,
       review: massage,
+      serviceImg: image,
     };
     fetch("http://localhost:5000/reviews", {
-      method: "PATCH",
+      method: "POST",
       headers: {
         "content-type": "application/json",
       },
@@ -45,6 +40,12 @@ const ServiceDetails = () => {
       });
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:5000/review/${_id}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data))
+      .catch((err) => console.log(err));
+  }, [_id]);
 
   return (
     <div className="w-5/6 mx-auto mt-8">
@@ -57,21 +58,23 @@ const ServiceDetails = () => {
         About Service: {description}
       </p>
       <div className="my-10">
-      <p className="text-2xl text-center font-semibold">Public Reviews</p>
-        {
-          reviews?.length > 0 ? <>
-          {
-            reviews.map(review => <div key={review._id}>
-              <div>
-                <img src={review?.img} alt="" />
-                <p>{review?.userName}</p>
+        <p className="text-2xl text-center font-semibold">Public Reviews</p>
+        {reviews?.length > 0 ? (
+          <>
+            {reviews.map((review) => (
+              <div key={review._id}>
+                <div>
+                  <img src={review?.img} alt="" />
+                  <p>{review?.userName}</p>
+                </div>
               </div>
-            </div>)
-          }
-          </>: 
-          <p className="text-2xl text-center font-semibold text-slate-600">No reviews for this item.</p>
-        }
-        
+            ))}
+          </>
+        ) : (
+          <p className="text-2xl text-center font-semibold text-slate-600">
+            No reviews for this item.
+          </p>
+        )}
       </div>
 
       {/* Reviews */}
@@ -170,13 +173,15 @@ const ServiceDetails = () => {
             </p>
           </div>
         ) : (
-          <div>
+          <div className="flex justify-center mt-4">
+            <Link to="/login" state={{from: location}} replace>
             <button
-              type="button"
-              className="focus:outline-none text-white bg-[#9c380c] hover:bg-[#912f06] font-medium text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900"
-            >
-              Login to add a review
-            </button>
+                type="button"
+                className="focus:outline-none text-white bg-[#9c380c] hover:bg-[#912f06] font-medium text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900"
+              >
+                Login to add a review
+              </button>
+            </Link>
           </div>
         )}
       </div>

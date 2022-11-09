@@ -16,7 +16,6 @@ const Login = () => {
     const password = form.password.value;
     login(email, password)
     .then(result => {
-      console.log(result.user);
       navigate(from, {replace: true});
     })
     .catch(error => console.error(error));

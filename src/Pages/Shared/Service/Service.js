@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Service = ({service}) => {
-  console.log(service);
   const {name, description, image, _id} = service;
   return (
     <div className='border rounded-sm shadow-sm p-4'>

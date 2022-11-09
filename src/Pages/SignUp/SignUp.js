@@ -1,10 +1,10 @@
-import { Result } from "postcss";
 import React, { useContext } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
-  const {creatUser} = useContext(AuthContext);
+  const {creatUser, updateUserProfile, logOut} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSignUp = event => {
     event.preventDefault();
@@ -13,14 +13,18 @@ const SignUp = () => {
     const email = form.email.value;
     const photoURL = form.photoURL.value;
     const password = form.password.value;
+    const profile = {displayName: name, photoURL: photoURL};
     creatUser(email, password)
     .then(result => {
-      const user = result.user;
-      console.log(user);
+      updateUserProfile(profile)
+      .then(() => {})
+      .catch(err => console.log(err));
+      logOut();
+      navigate('/login')
     })
     .catch(error => console.error(error))
+    
 
-    console.log(name, email, photoURL, password);
 
   }
   return (
