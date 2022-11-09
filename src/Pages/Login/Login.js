@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <div className="py-20 bg-gray-100">
       <div class="p-4 w-2/5 mx-auto bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form>
+        <form >
           <h5 class="text-2xl text-center mb-3 font-medium text-gray-900 dark:text-white">
             Sign In
           </h5>

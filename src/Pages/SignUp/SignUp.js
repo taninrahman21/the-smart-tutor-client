@@ -1,11 +1,32 @@
-import React from "react";
+import { Result } from "postcss";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
+import { AuthContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
+  const {creatUser} = useContext(AuthContext);
+
+  const handleSignUp = event => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photoURL = form.photoURL.value;
+    const password = form.password.value;
+    creatUser(email, password)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch(error => console.error(error))
+
+    console.log(name, email, photoURL, password);
+
+  }
   return (
     <div className="py-20 bg-gray-100">
       <div class="p-4 w-2/5 mx-auto bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form>
+        <form onSubmit={handleSignUp}>
           <h5 class="text-2xl text-center mb-3 font-medium text-gray-900 dark:text-white">
             Sign Up
           </h5>

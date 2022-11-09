@@ -1,9 +1,12 @@
 import React from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/UserContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const {user} = useContext(AuthContext);
   return (
     <div className="sticky top-0 border-b">
       <nav class="bg-gray-50 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
