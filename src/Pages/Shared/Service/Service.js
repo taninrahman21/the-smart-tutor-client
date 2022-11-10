@@ -5,7 +5,7 @@ const Service = ({service}) => {
   const {name, description, image, _id} = service;
   return (
     <div className='border rounded-sm shadow-sm p-4'>
-      <img className='h-[200px] w-full rounded-sm' src={image} alt="courseimg" />
+        <img className='h-[200px] w-full rounded-sm' src={image} alt="courseimg" />
       <h1 className='text-2xl font-semibold mt-3'>{name}</h1>
       <p className='text-justify'>{description?.length < 10 ? description : description?.slice(0,100)+'...'}</p>
       <div className="mt-2 flex justify-center">

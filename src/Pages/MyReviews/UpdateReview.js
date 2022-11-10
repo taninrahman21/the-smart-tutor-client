@@ -1,4 +1,5 @@
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 
 const UpdateReview = () => {
@@ -20,6 +21,7 @@ const UpdateReview = () => {
 }
   return (
     <div className='my-20'>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="text-center">
         <h1 className="text-4xl font-bold">Update Your Review</h1>
         <div className="h-1 w-10 bg-red-500 mx-auto mt-4"></div>

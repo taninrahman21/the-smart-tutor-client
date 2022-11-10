@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaUserAlt } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../contexts/UserContext";
 
@@ -51,7 +52,11 @@ const ServiceDetails = () => {
   return (
     <div className="w-5/6 mx-auto mt-8">
       <Toaster position="top-center" reverseOrder={false} />
+      <PhotoProvider>
+      <PhotoView src={image}>
       <img className="h-[250px] w-2/4 mx-auto" src={image} alt="" />
+      </PhotoView>
+    </PhotoProvider>
       <h1 className="text-3xl font-semibold mt-5">Service Name: {name}</h1>
       <p className="text-3xl font-semibold mt-2">Price: ${price}</p>
       <p className="text-3xl font-semibold mt-2">Ratings: {ratings}</p>
