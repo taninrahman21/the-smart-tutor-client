@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContext";
 
 const Login = () => {
+  const [error, setErorr] = useState('');
   const { login, googleSignIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Login = () => {
         navigate(from, { replace: true })
         });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => setErorr(error.message));
   };
   const handleGoogleSignIn = () => {
     googleSignIn()
@@ -79,6 +81,7 @@ const Login = () => {
               required
             />
           </div>
+          <p className='text-red-600 mt-3'>{error}</p>
 
           <button
             type="submit"

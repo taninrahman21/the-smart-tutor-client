@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 
 const UpdateReview = () => {
@@ -8,8 +8,9 @@ const UpdateReview = () => {
   const handleUpdate = event => {
     event.preventDefault();
     const newReview = event.target.review.value;
+    console.log(newReview);
 
-    fetch(`https://the-smart-tutor-server.vercel.app/update/${storedReview._id}`, {
+    fetch(`https://the-smart-tutor-server.vercel.app/${storedReview._id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json'
@@ -17,7 +18,12 @@ const UpdateReview = () => {
       body: JSON.stringify(newReview)
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      if(data.acknowledge){
+        toast.success("Succesfully Updated");
+        event.target.reset();
+      }
+    })
 }
   return (
     <div className='my-20'>
