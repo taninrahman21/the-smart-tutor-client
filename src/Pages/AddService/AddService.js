@@ -9,7 +9,7 @@ const AddService = () => {
     event.preventDefault();
     console.log(service);
     
-    fetch('http://localhost:5000/allservices', {
+    fetch('https://the-smart-tutor-server.vercel.app/allservices', {
       method: 'POST',
       headers: {
           'content-type': 'application/json'

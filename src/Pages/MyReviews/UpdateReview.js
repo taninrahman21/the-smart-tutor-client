@@ -8,7 +8,7 @@ const UpdateReview = () => {
     event.preventDefault();
     const newReview = event.target.review.value;
 
-    fetch(`http://localhost:5000/update/${storedReview._id}`, {
+    fetch(`https://the-smart-tutor-server.vercel.app/update/${storedReview._id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json'

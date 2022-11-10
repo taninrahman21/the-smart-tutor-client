@@ -25,7 +25,7 @@ const ServiceDetails = () => {
       massage: massage,
       serviceImg: image,
     };
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://the-smart-tutor-server.vercel.app/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -42,7 +42,7 @@ const ServiceDetails = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/review/${_id}`)
+    fetch(`https://the-smart-tutor-server.vercel.app/review/${_id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data))
       .catch((err) => console.log(err));
