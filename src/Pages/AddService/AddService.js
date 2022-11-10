@@ -4,6 +4,7 @@ import { useState } from 'react';
 const AddService = () => {
   const [service, setService] = useState({});
 
+  
   const handleAddService = event => {
     event.preventDefault();
     console.log(service);
@@ -34,7 +35,7 @@ const AddService = () => {
   return (
     <div className='py-20 bg-gray-100'>
        <div className="text-center mb-5">
-        <h1 className="text-4xl font-bold">Add A Reviews</h1>
+        <h1 className="text-4xl font-bold">Add A New Reviews</h1>
         <div className="h-1 w-10 bg-red-500 mx-auto mt-4"></div>
       </div>
 <form onSubmit={handleAddService} className='w-5/6 mx-auto'>

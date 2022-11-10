@@ -7,12 +7,17 @@ import { AuthContext } from '../../contexts/UserContext';
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
   const {user} = useContext(AuthContext);
+  
   useEffect( () => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+      headers: {
+        authorization : ` Bearer ${localStorage.getItem('secret-token')}`
+      }
+    })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => setMyReviews(data))
     .catch(err => console.log(err));
-  }, [user?.email, myReviews])
+  }, [user?.email])
 
   const handleDelete = id => {
     fetch(`http://localhost:5000/reviews/${id}`, {
@@ -37,18 +42,18 @@ const MyReviews = () => {
       </div>
       {
         myReviews?.length > 0 ? 
-        <div className='w-5/6 mx-auto grid grid-cols-3 gap-10 my-5'>
+        <div className='w-5/6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-5'>
         {
-          myReviews?.map(review => <div
-           key={review._id} className='border rounded-sm px-4 py-3 bg-gray-50'>
-                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Service Name: {review.serviceName}</h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
-                  Review: {review.review}</p>
+          myReviews?.map(revw => <div
+           key={revw._id} className='border rounded-sm px-4 py-3 bg-gray-50'>
+                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Service Name: {revw.serviceName}</h5>
+               <p className="font-normal text-gray-700 dark:text-gray-400">
+                  Review: {revw.massage}</p>
                   <div className='flex justify-between mt-3'>
-                    <Link to={`/reviews/${review._id}`}>
+                    <Link to={`/reviews/${revw._id}`}>
                     <button className='text-white bg-[#3f6c51] hover:bg-[#365e45] font-medium text-base px-4 py-1'>Edit Review</button>
                     </Link>
-                    <button onClick={() => handleDelete(review._id)} className="text-white bg-[#9c380c] hover:bg-[#912f06] font-medium text-base px-4 py-1">Delete Review</button>
+                    <button onClick={() => handleDelete(revw._id)} className="text-white bg-[#9c380c] hover:bg-[#912f06] font-medium text-base px-4 py-1">Delete Review</button>
                   </div>
                  </div>)
         }

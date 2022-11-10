@@ -22,7 +22,7 @@ const ServiceDetails = () => {
       userPhoto: user?.photoURL,
       userEmail: user?.email,
       userName: user?.displayName,
-      review: massage,
+      massage: massage,
       serviceImg: image,
     };
     fetch("http://localhost:5000/reviews", {
@@ -53,7 +53,7 @@ const ServiceDetails = () => {
       <Toaster position="top-center" reverseOrder={false} />
       <img className="h-[250px] w-2/4 mx-auto" src={image} alt="" />
       <h1 className="text-3xl font-semibold mt-5">Service Name: {name}</h1>
-      <p className="text-3xl font-semibold mt-2">Price: {price}</p>
+      <p className="text-3xl font-semibold mt-2">Price: ${price}</p>
       <p className="text-3xl font-semibold mt-2">Ratings: {ratings}</p>
       <p className="text-2xl font-semibold mt-6">
         About Service: {description}

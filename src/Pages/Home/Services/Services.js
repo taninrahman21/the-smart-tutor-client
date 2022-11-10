@@ -6,6 +6,7 @@ import Service from "../../Shared/Service/Service";
 
 const Services = () => {
   const [services, setServices] = useState([]);
+  
   useEffect(() => {
     fetch("http://localhost:5000/services")
       .then((res) => res.json())
@@ -20,7 +21,7 @@ const Services = () => {
         <h1 className="text-4xl font-bold">What I Do?</h1>
         <div className="h-1 w-10 bg-red-500 mx-auto mt-4"></div>
       </div>
-      <div className="grid grid-cols-3 gap-5 w-5/6 mx-auto mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-5/6 mx-auto mt-10">
         {services.map((service) => (
           <Service key={service._id} service={service}></Service>
         ))}
