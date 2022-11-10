@@ -10,7 +10,7 @@ const Contact = () => {
   return (
     <div className='bg-gray-100 py-24'>
        <Toaster position="top-center" reverseOrder={false} />
-<div className="w-5/6 mx-auto max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:px-8 dark:bg-gray-800 dark:border-gray-700">
+<div className="w-5/6 mx-auto max-w-sm bg-white rounded-lg border border-gray-200 shadow-md p-6 md:px-8 dark:bg-gray-800 dark:border-gray-700">
     <form onSubmit={handleSendRequest}>
       <p className='text-gray-700 mb-5 text-center'>Request Appointment</p>
         <h2 className="text-2xl font-medium text-gray-900 text-center">Make an Appointment With Me</h2>
