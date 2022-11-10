@@ -27,7 +27,7 @@ const MyReviews = () => {
     .then(data => {
       if(data.deletedCount > 0){
         const remaining = myReviews.filter(review => review._id !== id);
-        myReviews(remaining);
+        setMyReviews(remaining);
         toast.success('Review delete successfully!');
       }
     })
