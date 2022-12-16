@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
+import { format } from 'date-fns';
 import toast, { Toaster } from "react-hot-toast";
 import { FaUserAlt } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -14,6 +15,7 @@ const ServiceDetails = () => {
   const { name, price, image, description, ratings, _id } = useLoaderData();
   const location = useLocation();
 
+
   const handleUploadReview = (event) => {
     event.preventDefault();
     const massage = event.target.comments.value;
@@ -25,7 +27,9 @@ const ServiceDetails = () => {
       userName: user?.displayName,
       massage: massage,
       serviceImg: image,
+      reviewTime: format(new Date(), "PPpp")
     };
+    console.log(review);
     fetch("https://the-smart-tutor-server.vercel.app/reviews", {
       method: "POST",
       headers: {
@@ -37,6 +41,8 @@ const ServiceDetails = () => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Successfully Reviewed!");
+          const newReviews = [...reviews, review];
+          setReviews(newReviews);
           event.target.reset();
         }
       });
@@ -67,13 +73,14 @@ const ServiceDetails = () => {
         <p className="text-2xl text-center font-semibold">Public Reviews</p>
         {reviews?.length > 0 ? <div className="my-10">
           {
-            reviews.map(review => <div key={review._id} className='border-b-2 p-5'>
+            reviews.map((review, idx) => <div key={idx} className='border-b-2 p-5'>
               {
                 review.userPhoto ? <img className="w-[60px] rounded-lg mb-2" src={review.userPhoto} alt="userImage" /> 
                 : <FaUserAlt className="w-[60px] rounded-lg mb-2"/>
               }
               <h1>Name: {review.userName}</h1>
-              <p>Review: {review.review}</p>
+              <p>Review: {review.massage}</p>
+              <p className="text-sm text-gray-500">Updated on: {review.reviewTime}</p>
               </div>)
           }
         </div>: (
@@ -173,7 +180,7 @@ const ServiceDetails = () => {
             <p className="ml-auto text-xs text-gray-500 dark:text-gray-400">
               Remember, contributions to this topic should follow our{" "}
               <span className="hover:underline text-1xl text-blue-600">
-                Comunity Guidelines
+                Community Guidelines
               </span>{" "}
               .
             </p>

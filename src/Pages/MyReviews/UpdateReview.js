@@ -8,23 +8,21 @@ const UpdateReview = () => {
   const handleUpdate = event => {
     event.preventDefault();
     const newReview = event.target.review.value;
-    console.log(newReview);
+    const url = `https://localhost:5000/reviews/${storedReview._id}`;
 
-    fetch(`https://the-smart-tutor-server.vercel.app/${storedReview._id}`, {
-      method: 'PATCH',
+    fetch(url, {
+      method: "PUT",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json"
       },
-      body: JSON.stringify(newReview)
-    })
-    .then(res => res.json())
+      body: JSON.stringify(
+        {message: newReview}
+      )
+    }).then(res => res.json())
     .then(data => {
-      if(data.acknowledge){
-        toast.success("Succesfully Updated");
-        event.target.reset();
-      }
+      console.log(data);
     })
-}
+  }
   return (
     <div className='my-20'>
       <Toaster position="top-center" reverseOrder={false} />

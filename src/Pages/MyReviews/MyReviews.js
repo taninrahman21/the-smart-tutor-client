@@ -9,15 +9,18 @@ const MyReviews = () => {
   const {user} = useContext(AuthContext);
   
   useEffect( () => {
-    fetch(`https://the-smart-tutor-server.vercel.app/reviews?email=${user?.email}`, {
+    fetch(`the-smart-tutor-server.vercel.app/reviews?email=${user?.email}`, {
       headers: {
-        authorization : ` Bearer ${localStorage.getItem('secret-token')}`
+        authorization : ` Bearer ${localStorage.getItem('secretToken')}`
       }
     })
     .then(res => res.json())
-    .then(data => setMyReviews(data))
+    .then(data => {
+      setMyReviews(data);
+      console.log(data);
+    })
     .catch(err => console.log(err));
-  }, [user?.email])
+  }, [user?.email]);
 
   const handleDelete = id => {
     fetch(`https://the-smart-tutor-server.vercel.app/reviews/${id}`, {

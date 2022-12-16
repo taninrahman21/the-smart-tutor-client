@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { FaGoogle } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
-  const {creatUser, updateUserProfile, logOut} = useContext(AuthContext);
+  const {creatUser, updateUserProfile,googleSignIn, logOut} = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignUp = event => {
     event.preventDefault();
@@ -23,13 +27,17 @@ const SignUp = () => {
       navigate('/login')
     })
     .catch(error => console.error(error))
-    
+  }
 
-
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+    .then(result => {
+      navigate(from, { replace: true});
+    }).catch(error => console.log(error));
   }
   return (
     <div className="py-20 bg-gray-100">
-      <div className="p-4 w-2/5 mx-auto bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div className="p-8 w-10/12 md:w-9/12 lg:w-3/5 xl:w-2/5 mx-auto bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form onSubmit={handleSignUp}>
           <h5 className="text-2xl text-center mb-3 font-medium text-gray-900 dark:text-white">
             Sign Up
@@ -98,14 +106,20 @@ const SignUp = () => {
           </div>
           <button
             type="submit"
-            className="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
+            className="w-full mt-3 text-white bg-[#3f6c51] hover:bg-[#365e45] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center">
            Sign Up
           </button>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
             Have an account?{" "}
             <Link to='/login' className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Login.</Link>
           </div>
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="text-white flex items-center justify-center mt-5 text-center w-full bg-[#9c380c] hover:bg-[#912f06] focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 dark:focus:ring-[#1da1f2]/55"
+          > <FaGoogle className="mr-2 text-2xl"/>
+           <p className="text-lg"> Sign in with Google</p>
+          </button>
         </form>
       </div>
     </div>

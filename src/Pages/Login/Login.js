@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContext";
 
 const Login = () => {
-  const [error, setErorr] = useState('');
+  const [error, setError] = useState('');
   const { login, googleSignIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,13 +17,17 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+
     login(email, password)
       .then((result) => {
         const user = result.user;
         const currentUser = {
+          name: user.DisplayName,
           email: user.email
         }
-        fetch(`https://the-smart-tutor-server.vercel.app/jwt`, {
+
+        // Post User Data
+        fetch(`http://localhost:5000/jwt`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -32,11 +36,13 @@ const Login = () => {
         })
         .then(res => res.json())
         .then(data => {
-          localStorage.setItem('secret-token', data.token)
-        navigate(from, { replace: true })
+          console.log(data);
+          localStorage.setItem('secretToken', data.token)
+          navigate(from, { replace: true })
         });
+        
       })
-      .catch((error) => setErorr(error.message));
+      .catch((error) => setError(error.message));
   };
   const handleGoogleSignIn = () => {
     googleSignIn()
@@ -46,7 +52,7 @@ const Login = () => {
   }
   return (
     <div className="py-20 bg-gray-100">
-      <div className="p-4 w-2/5 mx-auto bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div className="p-8 w-10/12 md:w-9/12 lg:w-3/5 xl:w-2/5 mx-auto bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form onSubmit={handleLogin}>
           <h5 className="text-2xl text-center mb-3 font-medium text-gray-900 dark:text-white">
             Sign In
@@ -85,9 +91,9 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="w-full mt-3 text-white bg-[#3f6c51] hover:bg-[#365e45] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center"
           >
-            Login to your account
+            Login
           </button>
           <div className="text-sm mt-2 font-medium text-gray-500 dark:text-gray-300">
             Not registered?{" "}
@@ -101,7 +107,7 @@ const Login = () => {
           <button
             type="button"
             onClick={handleGoogleSignIn}
-            className="text-white flex items-center justify-center mt-5 text-center w-full bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 dark:focus:ring-[#1da1f2]/55"
+            className="text-white flex items-center justify-center mt-5 text-center w-full bg-[#9c380c] hover:bg-[#912f06] focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2 dark:focus:ring-[#1da1f2]/55"
           > <FaGoogle className="mr-2 text-2xl"/>
            <p className="text-lg"> Sign in with Google</p>
           </button>
