@@ -9,15 +9,10 @@ const MyReviews = () => {
   const {user} = useContext(AuthContext);
   
   useEffect( () => {
-    fetch(`the-smart-tutor-server.vercel.app/reviews?email=${user?.email}`, {
-      headers: {
-        authorization : ` Bearer ${localStorage.getItem('secretToken')}`
-      }
-    })
+    fetch(`the-smart-tutor-server.vercel.app/reviews?email=${user?.email}`)
     .then(res => res.json())
     .then(data => {
       setMyReviews(data);
-      console.log(data);
     })
     .catch(err => console.log(err));
   }, [user?.email]);

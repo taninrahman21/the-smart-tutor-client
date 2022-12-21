@@ -20,26 +20,27 @@ const Login = () => {
 
     login(email, password)
       .then((result) => {
-        const user = result.user;
-        const currentUser = {
-          name: user.DisplayName,
-          email: user.email
-        }
+        // const user = result.user;
+        navigate(from, { replace: true });
+        // const currentUser = {
+        //   name: user.DisplayName,
+        //   email: user.email
+        // }
 
-        // Post User Data
-        fetch(`http://localhost:5000/jwt`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(currentUser)
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          localStorage.setItem('secretToken', data.token)
-          navigate(from, { replace: true })
-        });
+        // // Post User Data
+        // fetch(`http://localhost:5000/jwt`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(currentUser)
+        // })
+        // .then(res => res.json())
+        // .then(data => {
+        //   console.log(data);
+        //   localStorage.setItem('secretToken', data.token)
+        //   navigate(from, { replace: true })
+        // });
         
       })
       .catch((error) => setError(error.message));
