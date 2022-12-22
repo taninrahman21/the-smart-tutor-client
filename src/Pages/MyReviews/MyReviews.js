@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/UserContext';
 
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
   const {user} = useContext(AuthContext);
+  console.log(user);
   
   useEffect( () => {
-    fetch(`the-smart-tutor-server.vercel.app/reviews?email=${user?.email}`)
+    fetch(`https://the-smart-tutor-server.vercel.app/reviews?email=${user?.email}`)
     .then(res => res.json())
     .then(data => {
       setMyReviews(data);
@@ -48,9 +48,6 @@ const MyReviews = () => {
                <p className="font-normal text-gray-700 dark:text-gray-400">
                   Review: {revw.massage}</p>
                   <div className='flex justify-between mt-3'>
-                    <Link to={`/reviews/${revw._id}`}>
-                    <button className='text-white bg-[#3f6c51] hover:bg-[#365e45] font-medium text-base px-4 py-1'>Edit Review</button>
-                    </Link>
                     <button onClick={() => handleDelete(revw._id)} className="text-white bg-[#9c380c] hover:bg-[#912f06] font-medium text-base px-4 py-1">Delete Review</button>
                   </div>
                  </div>)
