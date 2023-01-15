@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
-  const {creatUser, updateUserProfile,googleSignIn, logOut} = useContext(AuthContext);
+  const {createUser, updateUserProfile,googleSignIn, logOut} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,7 +18,7 @@ const SignUp = () => {
     const photoURL = form.photoURL.value;
     const password = form.password.value;
     const profile = {displayName: name, photoURL: photoURL};
-    creatUser(email, password)
+    createUser(email, password)
     .then(result => {
       updateUserProfile(profile)
       .then(() => {})
