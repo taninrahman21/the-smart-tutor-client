@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContext";
 
@@ -36,7 +36,6 @@ const MyReviews = () => {
 
   return (
     <div className="py-20 bg-gray-100">
-      <Toaster position="top-center" reverseOrder={false} />
       <div className="text-center">
         <h1 className="text-4xl font-bold">My Reviews</h1>
         <div className="h-1 w-10 bg-red-500 mx-auto mt-4"></div>
