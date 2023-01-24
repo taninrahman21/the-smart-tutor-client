@@ -59,7 +59,7 @@ export const routes = createBrowserRouter([
       {
         path: '/update-review/:id',
         element: <UpdateReview></UpdateReview>,
-        loader: ({params}) => fetch(`http://localhost:5000/reviews/${params.id}`)
+        loader: ({params}) => fetch(`https://the-smart-tutor-server.vercel.app/reviews/${params.id}`)
       },
       {
         path: '/add-service',

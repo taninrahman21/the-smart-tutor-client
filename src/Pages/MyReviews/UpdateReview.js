@@ -10,7 +10,7 @@ const UpdateReview = () => {
   const handleUpdate = () => {
     const review = newReview.current.value;
     const updateReview = { review };
-    fetch(`http://localhost:5000/update/${storedReview._id}`, {
+    fetch(`https://the-smart-tutor-server.vercel.app/update/${storedReview._id}`, {
       method: 'PATCH',
       headers: {
         'content-type' : 'application/json'
